@@ -1,0 +1,45 @@
+<% present restaurant, RestaurantPresenter do |presenter| %>
+  <div id="<%= dom_id restaurant %>" class="bg-white rounded-lg shadow-md border border-gray-200 flex flex-col h-full transition-shadow hover:shadow-lg">
+    <%# Restaurant Header %>
+    <div class="p-6 flex-grow">
+      <div class="flex justify-between items-start">
+        <div>
+          <h2 class="text-xl font-bold text-gray-900 mb-1">
+            <%= link_to restaurant.name, restaurant_path(restaurant), class: "hover:text-blue-700" %>
+            <span class="text-blue-600 hover:text-blue-800 align-middle"><i class="ph-bold ph-pencil-simple text-sm"></i></span>
+          </h2>
+          <p class="text-sm text-gray-500 mb-2"><%= presenter.full_contact %></p>
+          <%= presenter.website_link %>
+        </div>
+      </div>
+      <%# Deals Section %>
+      <div class="mt-4 space-y-4">
+        <% deals_by_day = restaurant.deals.group_by(&:day) %>
+        <% if deals_by_day.any? %>
+          <% deals_by_day.each do |day, deals| %>
+            <div class="deal-group">
+              <h4 class="text-md font-semibold text-gray-800"><%= day %></h4>
+              <% deals.each do |deal| %>
+                <% present deal, DealPresenter do |deal_presenter| %>
+                  <div class="text-sm mt-2 pl-2 border-l-2 border-gray-200">
+                    <p class="text-gray-800"><%= deal.description %></p>
+                    <p class="text-xs text-gray-500"><%= deal_presenter.time_range %></p>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="text-sm text-gray-400 italic">No deals added yet.</p>
+        <% end %>
+      </div>
+    </div>
+    <%# Footer with Add Deal button %>
+    <div class="mt-auto p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg">
+      <%= link_to new_deal_path(restaurant_id: restaurant.id), class: "inline-flex items-center gap-1 text-sm text-green-600 hover:text-green-800 font-medium" do %>
+        <i class="ph ph-plus-circle"></i>
+        <span>Add Deal</span>
+      <% end %>
+    </div>
+  </div>
+<% end %>

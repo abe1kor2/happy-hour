@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Happy Hour" %></title>
+    <title>HappyHour</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= tag.script src: "https://unpkg.com/@phosphor-icons/web" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
-  <body>
-    <%= yield %>
+  <body class="bg-gray-100 font-sans">
+    <main class="container mx-auto px-4 py-8">
+      <% if flash[:notice] %>
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded" role="alert">
+          <p><%= notice %></p>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded" role="alert">
+          <p><%= alert %></p>
+        </div>
+      <% end %>
+      <%= yield %>
+    </main>
   </body>
 </html>
