@@ -1,4 +1,11 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  # Helper method to instantiate presenters in views and controllers
+  helper_method :present
+
+  def present(model, presenter_class = nil)
+    klass = presenter_class || "#{model.class}Presenter".constantize
+    presenter = klass.new(model, view_context)
+    yield presenter if block_given?
+    presenter
+  end
 end
