@@ -5,12 +5,35 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= tag.script src: "https://unpkg.com/@phosphor-icons/web" %>
+    <!-- Leaflet CSS (1.9.4) -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <!-- Leaflet JS (1.9.4) -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
   <body class="bg-gray-100 font-sans">
-    <main class="container mx-auto px-4 py-8">
+    <header class="bg-white shadow-sm mb-8">
+      <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <%= link_to "Restaurant Deals", root_path, class: "text-xl font-bold text-gray-800" %>
+        <div>
+          <%= link_to "All Restaurants", root_path, class: "text-gray-600 hover:text-blue-600 px-3" %>
+          <%= link_to "View on Map", map_path, class: "text-gray-600 hover:text-blue-600 px-3" %>
+        </div>
+      </nav>
+    </header>
+    <main class="container mx-auto px-4">
       <% if flash[:notice] %>
         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded" role="alert">
           <p><%= notice %></p>

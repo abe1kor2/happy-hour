@@ -8,6 +8,14 @@ class RestaurantsController < ApplicationController
   def show
     # @restaurant is set by the before_action
     @deals_by_day = @restaurant.deals.group_by(&:day)
+
+    if @restaurant.latitude.present? && @restaurant.longitude.present?
+      @marker = [{
+        lat: @restaurant.latitude,
+        lng: @restaurant.longitude,
+        info_window_html: render_to_string(partial: "restaurants/map_popup", locals: { restaurant: @restaurant })
+      }]
+    end
   end
 
   def new
@@ -27,7 +35,7 @@ class RestaurantsController < ApplicationController
   def edit
     @restaurant_form = RestaurantForm.new(
       restaurant: @restaurant,
-      **@restaurant.attributes.slice("name", "address", "phone", "website")
+      **@restaurant.attributes.slice("name", "address", "phone", "website", "latitude", "longitude")
     )
   end
 
@@ -55,6 +63,6 @@ class RestaurantsController < ApplicationController
   end
 
   def restaurant_params
-    params.require(:restaurant_form).permit(:name, :address, :phone, :website)
+    params.require(:restaurant_form).permit(:name, :address, :phone, :website, :latitude, :longitude)
   end
 end

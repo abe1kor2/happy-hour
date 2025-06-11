@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   resources :restaurants
   resources :deals, only: [:new, :create, :edit, :update, :destroy]
 
+  get '/map', to: 'maps#show', as: 'map'
+
   get "up" => "rails/health#show", as: :rails_health_check
 end

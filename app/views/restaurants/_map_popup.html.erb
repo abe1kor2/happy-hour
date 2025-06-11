@@ -1,0 +1,5 @@
+<div class="map-popup">
+  <h3 class="font-bold text-lg"><%= restaurant.name %></h3>
+  <p><%= restaurant.address %></p>
+  <%= link_to "View Details", restaurant_path(restaurant), class: "text-blue-500 hover:underline", data: { turbo: "false" } %>
+</div>

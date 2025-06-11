@@ -2,9 +2,10 @@
   "name": "app",
   "private": "true",
   "dependencies": {
+    "@phosphor-icons/web": "^2.0.0",
     "@tailwindcss/cli": "^4.1.7",
-    "tailwindcss": "^4.1.7",
-    "@phosphor-icons/web": "^2.0.0"
+    "leaflet": "^1.9.4",
+    "tailwindcss": "^4.1.7"
   },
   "scripts": {
     "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
