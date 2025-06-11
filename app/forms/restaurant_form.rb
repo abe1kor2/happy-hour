@@ -8,6 +8,8 @@ class RestaurantForm
   attribute :address, :string
   attribute :phone, :string
   attribute :website, :string
+  attribute :latitude, :float
+  attribute :longitude, :float
 
   validates :name, presence: true
 
@@ -20,7 +22,7 @@ class RestaurantForm
 
   def persist
     @restaurant ||= Restaurant.new
-    @restaurant.assign_attributes(name: name, address: address, phone: phone, website: website)
+    @restaurant.assign_attributes(name: name, address: address, phone: phone, website: website, latitude: latitude, longitude: longitude)
     
     # Use a transaction and capture specific errors
     ActiveRecord::Base.transaction do
