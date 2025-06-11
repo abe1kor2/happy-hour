@@ -1,2 +1,5 @@
-<h1>Maps#show</h1>
-<p>Find me in app/views/maps/show.html.erb</p>
+<h1 class="text-3xl font-bold text-gray-800 mb-4">Restaurant Map</h1>
+<div style="height: 70vh;" class="w-full bg-gray-200 rounded-lg shadow-md"
+     data-controller="map"
+     data-map-markers-value="<%= @markers.to_json %>">
+</div>

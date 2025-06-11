@@ -25,6 +25,14 @@
     <%= f.label :website, class: "block text-sm font-medium text-gray-700" %>
     <%= f.url_field :website, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
   </div>
+    <div>
+    <%= f.label :latitude, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_field :latitude, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+  </div>
+  <div>
+    <%= f.label :longitude, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_field :longitude, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+  </div>
   <div class="pt-4 flex items-center justify-end gap-4">
     <%= link_to "Cancel", restaurants_path, class: "text-gray-600 hover:text-gray-900" %>
     <%= f.submit (f.object.restaurant&.persisted? ? "Update Restaurant" : "Create Restaurant"), class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition cursor-pointer" %>
