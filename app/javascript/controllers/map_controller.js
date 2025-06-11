@@ -11,7 +11,7 @@ export default class extends Controller {
     if (typeof(L) === "undefined") { return }
 
     this.map = L.map(this.element, {
-      scrollWheelZoom: false,
+      scrollWheelZoom: true,
     });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
