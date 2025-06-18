@@ -1,12 +1,23 @@
 <% present restaurant, RestaurantPresenter do |presenter| %>
-  <div id="<%= dom_id restaurant %>" class="bg-white rounded-lg shadow-md border border-gray-200 flex flex-col h-full transition-shadow hover:shadow-lg">
-    <%# Restaurant Header %>
+  <div id="<%= dom_id restaurant %>" class="bg-white rounded-lg shadow-md border border-gray-200 flex flex-col h-full transition-shadow hover:shadow-lg overflow-hidden">
+    <%# Image Header %>
+    <% if restaurant.photo.attached? %>
+      <%= link_to restaurant_path(slug: restaurant.slug) do %>
+        <div class="w-[380px] h-[300px] overflow-hidden">
+          <%= image_tag restaurant.photo.variant(resize_to_fill: [380, 300]), class: "w-full h-full object-cover" %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="w-[380px] h-[300px] bg-gray-200 flex items-center justify-center">
+        <i class="ph-bold ph-image text-4xl text-gray-400"></i>
+      </div>
+    <% end %>
+    <%# Restaurant Body %>
     <div class="p-6 flex-grow">
       <div class="flex justify-between items-start">
         <div>
           <h2 class="text-xl font-bold text-gray-900 mb-1">
-            <%= link_to restaurant.name, restaurant_path(restaurant), class: "hover:text-blue-700" %>
-            <span class="text-blue-600 hover:text-blue-800 align-middle"><i class="ph-bold ph-pencil-simple text-sm"></i></span>
+            <%= link_to restaurant.name, restaurant_path(slug: restaurant.slug), class: "hover:text-blue-700" %>
           </h2>
           <p class="text-sm text-gray-500 mb-2"><%= presenter.full_contact %></p>
           <%= presenter.website_link %>
@@ -36,7 +47,7 @@
     </div>
     <%# Footer with Add Deal button %>
     <div class="mt-auto p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg">
-      <%= link_to new_deal_path(restaurant_id: restaurant.id), class: "inline-flex items-center gap-1 text-sm text-green-600 hover:text-green-800 font-medium" do %>
+      <%= link_to new_deal_path(slug: restaurant.slug), class: "inline-flex items-center gap-1 text-sm text-green-600 hover:text-green-800 font-medium" do %>
         <i class="ph ph-plus-circle"></i>
         <span>Add Deal</span>
       <% end %>

@@ -1,4 +1,7 @@
-<%= form_with model: restaurant_form, url: (restaurant_form.restaurant&.persisted? ? restaurant_path(restaurant_form.restaurant) : restaurants_path), class: "space-y-6 bg-white p-8 rounded-lg shadow" do |f| %>
+<%= form_with model: restaurant_form, 
+              url: (restaurant_form.restaurant&.persisted? ? restaurant_path(restaurant_form.restaurant) : restaurants_path),
+              method: (restaurant_form.restaurant&.persisted? ? :patch : :post), 
+              class: "space-y-6 bg-white p-8 rounded-lg shadow" do |f| %>
   <% if f.object.errors.any? %>
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
       <strong class="font-bold">Please fix the following errors:</strong>
@@ -14,8 +17,28 @@
     <%= f.text_field :name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
   </div>
   <div>
+    <%= f.label :photo, class: "block text-sm font-medium text-gray-700" %>
+    <% if f.object.restaurant&.photo&.attached? %>
+      <div class="mt-2">
+        <%= image_tag f.object.restaurant.photo, class: "h-24 w-24 object-cover rounded-md" %>
+        <p class="text-xs text-gray-500 mt-1">Current photo shown. Upload a new one to replace it.</p>
+      </div>
+    <% end %>
+    <%= f.file_field :photo, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %>
+  </div>
+  <div>
     <%= f.label :address, class: "block text-sm font-medium text-gray-700" %>
     <%= f.text_field :address, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <%= f.label :latitude, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.number_field :latitude, step: :any, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+    <div>
+      <%= f.label :longitude, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.number_field :longitude, step: :any, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
   </div>
   <div>
     <%= f.label :phone, class: "block text-sm font-medium text-gray-700" %>
@@ -24,14 +47,6 @@
   <div>
     <%= f.label :website, class: "block text-sm font-medium text-gray-700" %>
     <%= f.url_field :website, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-  </div>
-  <div>
-    <%= f.label :latitude, class: "block text-sm font-medium text-gray-700" %>
-    <%= f.text_field :latitude, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-  </div>
-  <div>
-    <%= f.label :longitude, class: "block text-sm font-medium text-gray-700" %>
-    <%= f.text_field :longitude, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
   </div>
   <div class="pt-4 flex items-center justify-end gap-4">
     <%= link_to "Cancel", restaurants_path, class: "text-gray-600 hover:text-gray-900" %>

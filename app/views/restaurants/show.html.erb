@@ -1,52 +1,68 @@
-<div class="mb-6">
+<% present @restaurant, RestaurantPresenter do |presenter| %>
+  <div class="mb-6">
     <%= link_to "← Back to all restaurants", restaurants_path, class: "text-blue-600 hover:text-blue-800 mb-4 inline-block" %>
-</div>
+  </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-		<%# Left column for details %>
-	<div class="lg:col-span-2">
-			<% present @restaurant, RestaurantPresenter do |presenter| %>
-					<div class="flex justify-between items-start">
-						<div>
-							<h1 class="text-4xl font-bold text-gray-800 mb-1"><%= @restaurant.name %></h1>
-							<p class="text-gray-500 mb-2"><%= presenter.full_contact %></p>
-							<%= presenter.website_link %>
-						</div>
-						<div class="flex items-center gap-3">
-								<%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant), class: "inline-flex items-center gap-2 text-white bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-lg transition shadow-sm" %>
-						</div>
-					</div>
+  <!-- Hero Section -->
+  <div class="relative w-full h-80 lg:h-96 rounded-lg overflow-hidden mb-8 shadow-lg">
+    <% if @restaurant.photo.attached? %>
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url(<%= url_for(@restaurant.photo.variant(resize_to_limit: [1200, 800])) %>)"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+    <% else %>
+      <div class="w-full h-full bg-gray-300 flex items-center justify-center">
+        <i class="ph-bold ph-storefront text-6xl text-gray-500"></i>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-500/50 to-transparent"></div>
+    <% end %>
+    <div class="absolute bottom-0 left-0 p-8">
+      <h1 class="text-5xl font-extrabold text-white tracking-tight" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"><%= @restaurant.name %></h1>
+    </div>
+  </div>
 
-						<div class="mt-8">
-							<div class="flex justify-between items-center mb-4">
-								<h3 class="text-2xl font-semibold text-gray-700">Deals</h3>
-								<%= link_to new_deal_path(restaurant_id: @restaurant.id), class: "inline-flex items-center gap-1 text-sm text-white bg-green-600 hover:bg-green-700 font-medium px-3 py-1 rounded-lg" do %>
-									<i class="ph ph-plus-circle"></i>
-									<span>Add Deal</span>
-								<% end %>
-							</div>
-							<div class="space-y-4">
-								<% if @restaurant.deals.any? %>
-									<%= render partial: "deals/deal", collection: @restaurant.deals.order(:created_at), as: :deal %>
-								<% else %>
-									<p class="text-gray-500 bg-gray-100 p-4 rounded-lg">No deals have been added for this restaurant yet.</p>
-								<% end %>
-							</div>
-						</div>
-				<% end %>
-		</div>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-		<%# Right column for map %>
-		<div class="lg:col-span-1">
-				<% if @marker %>
-						<div class="h-80 w-full bg-gray-200 rounded-lg shadow-md"
-								data-controller="map"
-								data-map-markers-value="<%= @marker.to_json %>">
-						</div>
-				<% else %>
-						<div class="h-80 w-full bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
-								<p class="text-gray-500">Address not found for map.</p>
-						</div>
-				<% end %>
-		</div>
-</div>
+    <div class="lg:col-span-2">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-2xl font-semibold text-gray-700">Deals & Specials</h3>
+        <%= link_to new_deal_path(slug: @restaurant.slug), class: "inline-flex items-center gap-1 text-sm text-white bg-green-600 hover:bg-green-700 font-medium px-3 py-1 rounded-lg" do %>
+          <i class="ph ph-plus-circle"></i>
+          <span>Add Deal</span>
+        <% end %>
+      </div>
+      <div class="space-y-4">
+        <% if @restaurant.deals.any? %>
+          <%= render partial: "deals/deal", collection: @restaurant.deals.order(:created_at), as: :deal %>
+        <% else %>
+          <div class="text-center py-12 bg-gray-50 rounded-lg">
+            <i class="ph-bold ph-tag text-4xl text-gray-400"></i>
+            <p class="mt-2 text-gray-500">No deals have been added yet.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="lg:col-span-1 space-y-6">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h4 class="text-lg font-bold text-gray-800 mb-3">Location & Contact</h4>
+        <div class="space-y-2 text-sm">
+          <p class="text-gray-600"><%= presenter.full_contact %></p>
+          <%= presenter.website_link %>
+        </div>
+        <div class="mt-4">
+          <%= link_to "Edit Restaurant", edit_restaurant_path(slug: @restaurant.slug), class: "w-full text-center inline-flex items-center justify-center gap-2 text-white bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-lg transition shadow-sm" %>
+        </div>
+      </div>
+
+      <% if @marker %>
+        <div class="h-80 w-full bg-gray-200 rounded-lg shadow-md"
+             data-controller="map"
+             data-map-markers-value="<%= @marker.to_json %>">
+        </div>
+      <% else %>
+        <div class="h-80 w-full bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
+          <p class="text-gray-500">Address not found for map.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

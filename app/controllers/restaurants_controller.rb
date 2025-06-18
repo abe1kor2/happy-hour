@@ -2,11 +2,10 @@ class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
   def index
-    @restaurants = Restaurant.includes(:deals)
+    @restaurants = Restaurant.includes(:deals, photo_attachment: :blob)
   end
 
   def show
-    # @restaurant is set by the before_action
     @deals_by_day = @restaurant.deals.group_by(&:day)
 
     if @restaurant.latitude.present? && @restaurant.longitude.present?
@@ -42,7 +41,7 @@ class RestaurantsController < ApplicationController
   def update
     @restaurant_form = RestaurantForm.new(restaurant_params.merge(restaurant: @restaurant))
     if @restaurant_form.save
-      redirect_to restaurants_path, notice: "Restaurant updated successfully."
+      redirect_to @restaurant_form.restaurant, notice: "Restaurant updated successfully."
     else
       flash.now[:alert] = "Error updating restaurant."
       render :edit, status: :unprocessable_entity
@@ -57,12 +56,12 @@ class RestaurantsController < ApplicationController
   private
 
   def set_restaurant
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = Restaurant.find_by(slug: params[:slug]) || Restaurant.find(params[:slug])
   rescue ActiveRecord::RecordNotFound
     redirect_to restaurants_path, alert: "Restaurant not found."
   end
 
   def restaurant_params
-    params.require(:restaurant_form).permit(:name, :address, :phone, :website, :latitude, :longitude)
+    params.require(:restaurant_form).permit(:name, :address, :photo, :website, :photo, :latitude, :longitude)
   end
 end
