@@ -8,6 +8,7 @@ class RestaurantForm
   attribute :address, :string
   attribute :phone, :string
   attribute :website, :string
+  attribute :photo
   attribute :latitude, :float
   attribute :longitude, :float
 
@@ -22,16 +23,24 @@ class RestaurantForm
 
   def persist
     @restaurant ||= Restaurant.new
-    @restaurant.assign_attributes(name: name, address: address, phone: phone, website: website, latitude: latitude, longitude: longitude)
+    @restaurant.assign_attributes(
+      name: name,
+      address: address,
+      phone: phone,
+      website: website,
+      latitude: latitude,
+      longitude: longitude
+    )
+    # Attach the photo only if a new one was uploaded
+    @restaurant.photo.attach(photo) if photo.present?
     
-    # Use a transaction and capture specific errors
     ActiveRecord::Base.transaction do
       @restaurant.save!
     end
     true
   rescue ActiveRecord::RecordInvalid => e
-    # Transfer model errors to the form object
     e.record.errors.each { |error| errors.add(error.attribute, error.message) }
     false
   end
 end
+

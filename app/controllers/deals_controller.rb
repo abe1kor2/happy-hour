@@ -9,7 +9,7 @@ class DealsController < ApplicationController
   def create
     @deal_form = DealForm.new(deal_params.merge(restaurant_id: @restaurant.id))
     if @deal_form.save
-      redirect_to restaurant_path(@restaurant), notice: "Deal created successfully."
+      redirect_to restaurant_path(slug: @restaurant.slug), notice: "Deal created successfully."
     else
       flash.now[:alert] = "Error creating deal."
       render :new, status: :unprocessable_entity
@@ -26,7 +26,7 @@ class DealsController < ApplicationController
   def update
     @deal_form = DealForm.new(deal_params.merge(deal: @deal))
     if @deal_form.save
-      redirect_to restaurant_path(@deal.restaurant), notice: "Deal updated successfully."
+      redirect_to restaurant_path(slug: @deal.restaurant.slug), notice: "Deal updated successfully."
     else
       flash.now[:alert] = "Error updating deal."
       render :edit, status: :unprocessable_entity
@@ -48,8 +48,7 @@ class DealsController < ApplicationController
   end
 
   def set_restaurant
-    restaurant_id = params[:restaurant_id] || deal_params[:restaurant_id]
-    @restaurant = Restaurant.find(restaurant_id)
+    @restaurant = Restaurant.find_by(slug: params[:slug]) || Restaurant.find(params[:restaurant_id])
   rescue ActiveRecord::RecordNotFound
     redirect_to restaurants_path, alert: "Associated restaurant not found."
   end
