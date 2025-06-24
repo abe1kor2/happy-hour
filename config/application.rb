@@ -16,6 +16,11 @@ module HappyHour
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Configure Solid Cache and Solid Queue to use the primary database connection
+    config.solid_cache.connects_to = { database: { writing: :primary, reading: :primary } }
+    config.solid_queue.connects_to = { database: { writing: :primary, reading: :primary } }
+
+
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
