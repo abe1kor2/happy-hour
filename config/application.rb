@@ -20,10 +20,6 @@ module HappyHour
     config.solid_cache.connects_to = { database: { writing: :primary, reading: :primary } }
     config.solid_queue.connects_to = { database: { writing: :primary, reading: :primary } }
 
-    # Configure Solid Cable to use the primary database connection
-    # Note: Action Cable adapter also needs to be set in production.rb
-    config.solid_cable.connects_to = { database: { writing: :primary, reading: :primary } }
-
 
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
