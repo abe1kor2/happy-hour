@@ -18,10 +18,12 @@ Rails.application.configure do
   # Cache assets for far-future expiry since they are all digest stamped.
   config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
 
-  # Disable asset compilation at runtime for performance. Precompile assets before deployment.
-  config.assets.compile = false 
+  # Enable serving of static files from the public folder. Render needs this.
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present? || true
 
-  # Store uploaded files on the local file system (see config/storage.yml for options).
+  # Store uploaded files on the local file system. This is suitable for Render's free tier,
+  # but be aware that the file system is ephemeral and files will be lost on deploys.
+  # For persistent storage, configure a cloud service like S3, GCS, or Azure.
   config.active_storage.service = :local
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
@@ -29,9 +31,6 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
-
-  # Skip http-to-https redirect for the default health check endpoint.
-  # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]
@@ -48,29 +47,19 @@ Rails.application.configure do
 
   # Replace the default in-process memory cache store with a durable alternative.
   config.cache_store = :solid_cache_store
+  # Configure Solid Cache to use the primary database connection.
+  config.solid_cache.connects_to = { database: { writing: :primary, reading: :primary } }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :queue } }
-
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  # Configure Solid Queue to use the primary database connection.
+  config.solid_queue.connects_to = { database: { writing: :primary, reading: :primary } }
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  # Remember to set this to your actual Render URL in your environment variables.
+  config.action_mailer.default_url_options = { host: ENV.fetch("RAILS_HOST") { "happyhournl.onrender.com" } }
 
-  # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
-  # config.action_mailer.smtp_settings = {
-  #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
-  #   password: Rails.application.credentials.dig(:smtp, :password),
-  #   address: "smtp.example.com",
-  #   port: 587,
-  #   authentication: :plain
-  # }
-
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
+  # Enable locale fallbacks for I18n.
   config.i18n.fallbacks = true
 
   # Do not dump schema after migrations.
@@ -78,13 +67,7 @@ Rails.application.configure do
 
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
-
-  # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
-  #
-  # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  
+  # Allow your Render domain.
+  config.hosts << ENV.fetch("RAILS_HOST") { "happyhournl.onrender.com" } if ENV["RAILS_HOST"].present?
 end
