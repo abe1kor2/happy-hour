@@ -9,9 +9,6 @@ Rails.application.configure do
   # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
   config.eager_load = true
 
-  # Disable asset compilation at runtime for performance. Precompile assets before deployment.
-  config.assets.compile = false 
-
   # Full error reports are disabled.
   config.consider_all_requests_local = false
 
@@ -21,11 +18,11 @@ Rails.application.configure do
   # Cache assets for far-future expiry since they are all digest stamped.
   config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
 
-  # VIBE CHECK: Enable serving of static files from the public folder. Render needs this.
-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present? || true
+  # Disable asset compilation at runtime for performance. Precompile assets before deployment.
+  config.assets.compile = false 
 
-  # VIBE CHECK: Use `:disk` for Active Storage. Note limitations below.
-  config.active_storage.service = :disk # Or :amazon, :google, etc. for cloud storage
+  # Store uploaded files on the local file system (see config/storage.yml for options).
+  config.active_storage.service = :local
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true
@@ -34,7 +31,7 @@ Rails.application.configure do
   config.force_ssl = true
 
   # Skip http-to-https redirect for the default health check endpoint.
-  config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
+  # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]
@@ -51,26 +48,17 @@ Rails.application.configure do
 
   # Replace the default in-process memory cache store with a durable alternative.
   config.cache_store = :solid_cache_store
-  # VIBE CHECK: Solid Cache connects to the primary database.
-  config.solid_cache.connects_to = { database: { writing: :primary, reading: :primary } }
-
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
-  # VIBE CHECK: Solid Queue connects to the primary database.
-  config.solid_queue.connects_to = { database: { writing: :primary, reading: :primary } }
-
-  # VIBE CHECK: Action Cable adapter set to Solid Cable.
-  config.action_cable.adapter = :solid_cable
-  # VIBE CHECK: Solid Cable connects to the primary database.
-  config.solid_cable.connects_to = { database: { writing: :primary, reading: :primary } }
-
-  # Set host to be used by links generated in mailer templates.
-  # VIBE CHECK: Replace 'your-render-app-name.onrender.com' with your actual Render service URL.
-  config.action_mailer.default_url_options = { host: ENV.fetch("RAILS_HOST", "your-render-app-name.onrender.com") }
+  config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+
+  # Set host to be used by links generated in mailer templates.
+  config.action_mailer.default_url_options = { host: "example.com" }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
@@ -92,7 +80,11 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # VIBE CHECK: Allow your Render domain.
-  config.hosts << ENV.fetch("RAILS_HOST", "your-render-app-name.onrender.com")
-  config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  # config.hosts = [
+  #   "example.com",     # Allow requests from example.com
+  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
+  # ]
+  #
+  # Skip DNS rebinding protection for the default health check endpoint.
+  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
