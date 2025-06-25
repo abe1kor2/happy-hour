@@ -47,13 +47,9 @@ Rails.application.configure do
 
   # Replace the default in-process memory cache store with a durable alternative.
   config.cache_store = :solid_cache_store
-  # Configure Solid Cache to use the primary database connection.
-  config.solid_cache.connects_to = { database: { writing: :primary, reading: :primary } }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
-  # Configure Solid Queue to use the primary database connection.
-  config.solid_queue.connects_to = { database: { writing: :primary, reading: :primary } }
 
   # Set host to be used by links generated in mailer templates.
   # Remember to set this to your actual Render URL in your environment variables.
