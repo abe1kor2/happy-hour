@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
   def index
-    @restaurants = Restaurant.includes(:deals, photo_attachment: :blob)
+    @restaurants = Restaurant.order(name: :asc).includes(:deals, photo_attachment: :blob)
   end
 
   def show

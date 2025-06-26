@@ -61,4 +61,4 @@ test:
 production:
   <<: *default
   database: happyhournl
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV.fetch("DATABASE_URL", "") %>
