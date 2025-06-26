@@ -46,7 +46,8 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   # Replace the default in-process memory cache store with a durable alternative.
-  # config.cache_store = :solid_cache_store
+  config.cache_store = :solid_cache_store
+  config.solid_cache.connects_to = { database: { writing: :primary, reading: :primary } }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
@@ -60,10 +61,16 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
+  
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
-  
+
   # Allow your Render domain.
   config.hosts << ENV.fetch("RAILS_HOST") { "happyhournl.onrender.com" } if ENV["RAILS_HOST"].present?
+
+  # --- Action Cable setup ---
+  config.action_cable.url = "wss://#{ENV.fetch("RAILS_HOST", "happyhournl.onrender.com")}/cable"
+  config.action_cable.allowed_request_origins = [
+    "https://#{ENV.fetch("RAILS_HOST", "happyhournl.onrender.com")}"
+  ]
 end
