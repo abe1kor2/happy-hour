@@ -45,12 +45,6 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
-  config.solid_cache.connects_to = { database: { writing: :primary, reading: :primary } }
-
-  config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :primary, reading: :primary } }
 
   # Set host to be used by links generated in mailer templates.
   # Remember to set this to your actual Render URL in your environment variables.
