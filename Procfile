@@ -1,2 +1,2 @@
-release: bundle exec rails db:create db:migrate db:seed RAILS_ENV=production
+release: bundle exec rails db:prepare && bundle exec rails db:seed
 web: bundle exec puma -C config/puma.rb
