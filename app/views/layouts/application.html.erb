@@ -30,6 +30,11 @@
         <div>
           <%= link_to "All Restaurants", root_path, class: "text-gray-600 hover:text-blue-600 px-3" %>
           <%= link_to "View on Map", map_path, class: "text-gray-600 hover:text-blue-600 px-3" %>
+          <% if admin_signed_in? %>
+            <%= link_to "Logout", logout_path, method: :delete, class: "text-gray-600 hover:text-blue-600 px-3" %>
+          <% else %>
+            <%= link_to "Admin Login", login_path, class: "text-gray-600 hover:text-blue-600 px-3" %>
+          <% end %>
         </div>
       </nav>
     </header>

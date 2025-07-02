@@ -1,8 +1,10 @@
 <div class="flex justify-between items-center mb-8">
   <h1 class="text-3xl font-bold text-gray-800">Restaurants</h1>
-  <%= link_to new_restaurant_path, class: "inline-flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition shadow-sm" do %>
-    <i class="ph ph-plus text-lg"></i>
-    <span>New Restaurant</span>
+  <% if admin_signed_in? %>
+    <%= link_to new_restaurant_path, class: "inline-flex items-center text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition shadow-sm" do %>
+      <i class="ph ph-plus text-lg"></i>
+      <span>New Restaurant</span>
+    <% end %>
   <% end %>
 </div>
 <% if @restaurants.any? %>
@@ -13,6 +15,8 @@
   <div class="text-center py-16 bg-white rounded-lg shadow-sm">
     <i class="ph-bold ph-storefront text-5xl text-gray-400"></i>
     <h3 class="mt-4 text-xl font-semibold text-gray-700">No Restaurants Yet</h3>
-    <p class="mt-1 text-gray-500">Click "New Restaurant" to add the first one!</p>
+    <% if admin_signed_in? %>
+      <p class="mt-1 text-gray-500">Click "New Restaurant" to add the first one!</p>
+    <% end %>
   </div>
 <% end %>

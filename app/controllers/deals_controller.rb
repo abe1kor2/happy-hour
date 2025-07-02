@@ -1,6 +1,7 @@
 class DealsController < ApplicationController
   before_action :set_deal, only: [:edit, :update, :destroy]
   before_action :set_restaurant, only: [:new, :create]
+  before_action :require_admin
 
   def new
     @deal_form = DealForm.new(restaurant_id: @restaurant.id)
