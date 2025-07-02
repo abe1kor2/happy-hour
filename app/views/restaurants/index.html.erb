@@ -1,7 +1,7 @@
 <div class="flex justify-between items-center mb-8">
   <h1 class="text-3xl font-bold text-gray-800">Restaurants</h1>
   <% if admin_signed_in? %>
-    <%= link_to new_restaurant_path, class: "inline-flex items-center text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition shadow-sm" do %>
+    <%= link_to new_restaurant_path, class: "inline-flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition shadow-sm" do %>
       <i class="ph ph-plus text-lg"></i>
       <span>New Restaurant</span>
     <% end %>
