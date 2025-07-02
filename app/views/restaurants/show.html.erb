@@ -24,9 +24,11 @@
     <div class="lg:col-span-2">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-2xl font-semibold text-gray-700">Deals & Specials</h3>
-        <%= link_to new_deal_path(slug: @restaurant.slug), class: "inline-flex items-center gap-1 text-sm text-white bg-green-600 hover:bg-green-700 font-medium px-3 py-1 rounded-lg" do %>
-          <i class="ph ph-plus-circle"></i>
-          <span>Add Deal</span>
+        <% if admin_signed_in? %>
+          <%= link_to new_deal_path(slug: @restaurant.slug), class: "inline-flex items-center gap-1 text-sm text-white bg-green-600 hover:bg-green-700 font-medium px-3 py-1 rounded-lg" do %>
+            <i class="ph ph-plus-circle"></i>
+            <span>Add Deal</span>
+          <% end %>
         <% end %>
       </div>
       <div class="space-y-4">
@@ -48,9 +50,11 @@
           <p class="text-gray-600"><%= presenter.full_contact %></p>
           <%= presenter.website_link %>
         </div>
-        <div class="mt-4">
-          <%= link_to "Edit Restaurant", edit_restaurant_path(slug: @restaurant.slug), class: "w-full text-center inline-flex items-center justify-center gap-2 text-white bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-lg transition shadow-sm" %>
-        </div>
+        <% if admin_signed_in? %>
+          <div class="mt-4">
+            <%= link_to "Edit Restaurant", edit_restaurant_path(slug: @restaurant.slug), class: "w-full text-center inline-flex items-center justify-center gap-2 text-white bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-lg transition shadow-sm" %>
+          </div>
+        <% end %>
       </div>
 
       <% if @marker %>
