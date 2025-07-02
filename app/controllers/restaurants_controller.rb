@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @restaurants = Restaurant.order(name: :asc).includes(:deals, photo_attachment: :blob)
