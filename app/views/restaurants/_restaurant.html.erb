@@ -46,11 +46,13 @@
       </div>
     </div>
     <%# Footer with Add Deal button %>
-    <div class="mt-auto p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg">
-      <%= link_to new_deal_path(slug: restaurant.slug), class: "inline-flex items-center gap-1 text-sm text-green-600 hover:text-green-800 font-medium" do %>
-        <i class="ph ph-plus-circle"></i>
-        <span>Add Deal</span>
-      <% end %>
-    </div>
+    <% if admin_signed_in? %>
+      <div class="mt-auto p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg">
+        <%= link_to new_deal_path(slug: restaurant.slug), class: "inline-flex items-center gap-1 text-sm text-green-600 hover:text-green-800 font-medium" do %>
+          <i class="ph ph-plus-circle"></i>
+          <span>Add Deal</span>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>
