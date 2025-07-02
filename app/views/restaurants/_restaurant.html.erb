@@ -3,7 +3,7 @@
     <%# Image Header %>
     <% if restaurant.photo.attached? %>
       <%= link_to restaurant_path(slug: restaurant.slug) do %>
-        <div class="w-[380px] h-[300px] overflow-hidden">
+        <div>
           <%= image_tag restaurant.photo.variant(resize_to_fill: [380, 300]), class: "w-full h-full object-cover" %>
         </div>
       <% end %>
@@ -13,7 +13,7 @@
       </div>
     <% end %>
     <%# Restaurant Body %>
-    <div class="p-6 flex-grow">
+    <div class="p-6">
       <div class="flex justify-between items-start">
         <div>
           <h2 class="text-xl font-bold text-gray-900 mb-1">
