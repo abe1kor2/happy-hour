@@ -46,7 +46,7 @@ if r2.new_record?
 else
     puts "Found Bernard Stanley Gastropub, skipping creation."
 end
-r2.photo.attach(io: File.open(Rails.root.join("app/assets/images/bernard-stanley.png")), filename: "bernard-stanley.png") unless r2.photo.attached?
+r2.photo.attach(io: File.open(Rails.root.join("app/assets/images/bernard-stanley.jpg")), filename: "bernard-stanley.jpg") unless r2.photo.attached?
 if r2.deals.empty?
   r2.deals.create!(
     day: "Monday to Friday",
@@ -72,7 +72,7 @@ if r3.new_record?
 else
     puts "Found SHAMROCK CITY, skipping creation."
 end
-r3.photo.attach(io: File.open(Rails.root.join("app/assets/images/shamrock-city.png")), filename: "shamrock-city.png") unless r3.photo.attached?
+r3.photo.attach(io: File.open(Rails.root.join("app/assets/images/shamrock-city.jpg")), filename: "shamrock-city.jpg") unless r3.photo.attached?
 if r3.deals.empty?
   r3.deals.create!([
     {
@@ -106,7 +106,7 @@ if r4.new_record?
 else
     puts "Found Sláinte, skipping creation."
 end
-r4.photo.attach(io: File.open(Rails.root.join("app/assets/images/slainte.png")), filename: "slainte.png") unless r4.photo.attached?
+r4.photo.attach(io: File.open(Rails.root.join("app/assets/images/slainte.jpg")), filename: "slainte.jpg") unless r4.photo.attached?
 if r4.deals.empty?
   r4.deals.create!(
     day: "Tuesday through Friday",
@@ -158,7 +158,7 @@ if r6.new_record?
 else
     puts "Found Magnum & Steins, skipping creation."
 end
-r6.photo.attach(io: File.open(Rails.root.join("app/assets/images/magnum-happy-hours-1311x1536.png")), filename: "magnum-happy-hours-1311x1536.png") unless r6.photo.attached?
+r6.photo.attach(io: File.open(Rails.root.join("app/assets/images/magnum-happy-hours-1311x1536.jpg")), filename: "magnum-happy-hours-1311x1536.jpg") unless r6.photo.attached?
 if r6.deals.empty?
   r6.deals.create!(
     day: "Tuesday – Saturday 5-7 pm, Sunday & Monday 5-9 pm",
@@ -210,7 +210,7 @@ if r8.new_record?
 else
     puts "Found The Gypsy Tea Room, skipping creation."
 end
-r8.photo.attach(io: File.open(Rails.root.join("app/assets/images/gypsy-tea-room.jpg")), filename: "gypsy-tea-room.jpg") unless r8.photo.attached?
+r8.photo.attach(io: File.open(Rails.root.join("app/assets/images/gypsy_tea_room.jpeg")), filename: "gypsy_tea_room.jpeg") unless r8.photo.attached?
 if r8.deals.empty?
   r8.deals.create!(
     day: "Everyday",
@@ -262,7 +262,7 @@ if r10.new_record?
 else
     puts "Found RABBLE, skipping creation."
 end
-r10.photo.attach(io: File.open(Rails.root.join("app/assets/images/rabble.png")), filename: "rabble.png") unless r10.photo.attached?
+r10.photo.attach(io: File.open(Rails.root.join("app/assets/images/rabble.jpg")), filename: "rabble.jpg") unless r10.photo.attached?
 if r10.deals.empty?
   r10.deals.create!(
     day: "Everyday",

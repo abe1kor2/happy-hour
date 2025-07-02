@@ -3,6 +3,7 @@ class Restaurant < ApplicationRecord
   validates :name, presence: true
 
   has_one_attached :photo
+  validates :photo, content_type: 'image/jpeg', if: -> { photo.attached? }
 
   before_validation :generate_slug, if: -> { name_changed? || slug.blank? }
 
