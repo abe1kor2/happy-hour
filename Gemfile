@@ -19,8 +19,6 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-gem "image_processing", "~> 1.2"
-
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -41,7 +39,12 @@ gem 'cssbundling-rails'
 
 gem 'geocoder'
 
+# image rendering
 gem 'ruby-vips', '~> 2.1'
+gem 'mini_magick'
+gem "image_processing", "~> 1.2"
+
+gem "active_storage_validations", "~> 1.1.3"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
