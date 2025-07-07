@@ -24,7 +24,8 @@ Rails.application.configure do
   # Store uploaded files on the local file system. This is suitable for Render's free tier,
   # but be aware that the file system is ephemeral and files will be lost on deploys.
   # For persistent storage, configure a cloud service like S3, GCS, or Azure.
-  config.active_storage.service = :local
+  # config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true
