@@ -1,24 +1,50 @@
-# README
+# Restaurant Deals App (Rails 8)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application lists restaurants and their associated daily deals.
 
-Things you may want to cover:
+### Prerequisites
 
-* Ruby version
+- Ruby 3.3.1+
+- Node.js and npm
+- PostgreSQL
 
-* System dependencies
+### Setup Instructions
 
-* Configuration
+1.  **Clone & Bundle:**
 
-* Database creation
+    ```bash
+    # git clone <your-repo-url>
+    # cd <your-repo-name>
+    bundle install
+    ```
 
-* Database initialization
+2.  **Install JavaScript Dependencies:**
 
-* How to run the test suite
+    ```bash
+    npm install
+    ```
 
-* Services (job queues, cache servers, search engines, etc.)
+3.  **Setup Environment Variables:**
+    Create a `.env` file in your root directory for database credentials.
 
-* Deployment instructions
+    ```
+    DATABASE_URL="postgresql://<user>:<password>@localhost/happy_hour_development"
+    ```
 
-* ...
+4.  **Create and Migrate the Database:**
+    Make sure your PostgreSQL server is running.
+
+    ```bash
+    rails db:create
+    rails db:migrate
+    ```
+
+5.  **Run the Server:**
+    This will start both the Rails server and the Tailwind CSS watcher.
+
+    ```bash
+    bin/dev
+    ```
+
+6.  **Open the App:**
+    Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
