@@ -10,12 +10,15 @@ if r1.new_record?
   puts "Creating St. John's Fish Exchange..."
   r1.assign_attributes(
     name: "St. John's Fish Exchange Kitchen & Wet Bar",
-    address: "351 Water St, St. John's, NL A1C 1C2",
+      address: "351 Water St, St. John's, NL A1C 1C2",
     phone: "(709) 739-7539",
-    website: "https://sjfx.ca/",
-    latitude: 47.56039315016426,
-    longitude: -52.71058174891693
+      website: "https://sjfx.ca/",
+      latitude: 47.56039315016426,
+      longitude: -52.71058174891693
   )
+  # Attach photo if not already attached
+  photo_path = Rails.root.join('app', 'assets', 'images', 'fish-exchange-happyhour.jpg')
+  r1.photo.attach(io: File.open(photo_path), filename: 'fish-exchange-happyhour.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
   r1.save!
 else
   puts "Found St. John's Fish Exchange, skipping creation."
@@ -42,6 +45,9 @@ if r2.new_record?
     longitude: -52.704883664261565
   )
   r2.save!
+  # Attach photo
+  photo_path = Rails.root.join('app', 'assets', 'images', 'bernard-stanley.jpg')
+  r2.photo.attach(io: File.open(photo_path), filename: 'bernard-stanley.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
 else
     puts "Found Bernard Stanley Gastropub, skipping creation."
 end
@@ -67,6 +73,9 @@ if r3.new_record?
         longitude: -52.713260541934346
     )
     r3.save!
+    # Attach photo
+    photo_path = Rails.root.join('app', 'assets', 'images', 'shamrock.jpg')
+    r3.photo.attach(io: File.open(photo_path), filename: 'shamrock.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
 else
     puts "Found SHAMROCK CITY, skipping creation."
 end
@@ -100,6 +109,9 @@ if r4.new_record?
         longitude: -52.70390868940153
     )
     r4.save!
+    # Attach photo
+    photo_path = Rails.root.join('app', 'assets', 'images', 'slainte-happy-hour-1534x1536.jpg')
+    r4.photo.attach(io: File.open(photo_path), filename: 'slainte-happy-hour-1534x1536.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
 else
     puts "Found Sláinte, skipping creation."
 end
@@ -125,6 +137,9 @@ if r5.new_record?
         longitude: -52.794260301030874
     )
     r5.save!
+    # Attach photo
+    photo_path = Rails.root.join('app', 'assets', 'images', 'landwash-brewery.jpg')
+    r5.photo.attach(io: File.open(photo_path), filename: 'landwash-brewery.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
 else
     puts "Found Landwash Brewery, skipping creation."
 end
@@ -150,6 +165,9 @@ if r6.new_record?
         longitude: -52.70794951637276
     )
     r6.save!
+    # Attach photo
+    photo_path = Rails.root.join('app', 'assets', 'images', 'magnum-happy-hours-1311x1536.jpg')
+    r6.photo.attach(io: File.open(photo_path), filename: 'magnum-happy-hours-1311x1536.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
 else
     puts "Found Magnum & Steins, skipping creation."
 end
@@ -175,6 +193,9 @@ if r7.new_record?
         longitude: -52.715046391244684
     )
     r7.save!
+    # Attach photo
+    photo_path = Rails.root.join('app', 'assets', 'images', 'carney.jpg')
+    r7.photo.attach(io: File.open(photo_path), filename: 'carney.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
 else
     puts "Found The Cannery, skipping creation."
 end
@@ -200,6 +221,9 @@ if r8.new_record?
         longitude: -52.70986712986412
     )
     r8.save!
+    # Attach photo
+    photo_path = Rails.root.join('app', 'assets', 'images', 'gypsy-tea-room.jpg')
+    r8.photo.attach(io: File.open(photo_path), filename: 'gypsy-tea-room.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
 else
     puts "Found The Gypsy Tea Room, skipping creation."
 end
@@ -225,6 +249,9 @@ if r9.new_record?
         longitude: -52.7099802452091
     )
     r9.save!
+    # Attach photo
+    photo_path = Rails.root.join('app', 'assets', 'images', 'celtic-hearth-happy-hour.jpg')
+    r9.photo.attach(io: File.open(photo_path), filename: 'celtic-hearth-happy-hour.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
 else
     puts "Found Celtic Hearth, skipping creation."
 end
@@ -250,6 +277,9 @@ if r10.new_record?
         longitude: -52.70722992193435
     )
     r10.save!
+    # Attach photo
+    photo_path = Rails.root.join('app', 'assets', 'images', 'rabble.jpg')
+    r10.photo.attach(io: File.open(photo_path), filename: 'rabble.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
 else
     puts "Found RABBLE, skipping creation."
 end
