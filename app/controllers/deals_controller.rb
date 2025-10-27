@@ -55,6 +55,6 @@ class DealsController < ApplicationController
   end
 
   def deal_params
-    params.require(:deal_form).permit(:day, :start_time, :end_time, :description, :restaurant_id)
+    params.require(:deal_form).permit(:start_time, :end_time, :description, :restaurant_id, day: [])
   end
 end
