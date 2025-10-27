@@ -1,5 +1,14 @@
 <div class="map-popup">
-  <h3 class="font-bold text-lg"><%= restaurant.name %></h3>
-  <p><%= restaurant.address %></p>
-  <%= link_to "View Details", restaurant_path(restaurant), class: "text-blue-500 hover:underline", data: { turbo: "false" } %>
-</div>
+  <h3 class="font-bold text-lg">
+    <%= link_to restaurant.name, restaurant_path(restaurant), class: "text-blue-500 hover:underline", data: { turbo: "false" } %>
+  </h3>
+  <p class="mb-3"><%= restaurant.address %></p>
+  <% if restaurant.latitude.present? && restaurant.longitude.present? %>
+    <%= link_to "https://www.google.com/maps/dir/?api=1&destination=#{restaurant.latitude},#{restaurant.longitude}", 
+                target: "_blank",
+                class: "inline-flex items-center py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors" do %>
+      <i class="ph ph-map-pin text-xl"></i>
+      <span>Directions</span>
+    <% end %>
+  </div>
+<% end %>

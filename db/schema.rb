@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_16_163631) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_24_205618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -45,12 +45,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_16_163631) do
 
   create_table "deals", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "restaurant_id", null: false
-    t.string "day"
+    t.string "day", default: [], array: true
     t.time "start_time"
     t.time "end_time"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["day"], name: "index_deals_on_day", using: :gin
     t.index ["restaurant_id"], name: "index_deals_on_restaurant_id"
   end
 
