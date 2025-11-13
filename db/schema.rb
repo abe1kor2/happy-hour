@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_24_205618) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_13_145515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -65,6 +65,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_24_205618) do
     t.decimal "latitude"
     t.decimal "longitude"
     t.string "slug"
+    t.text "description"
     t.index ["slug"], name: "index_restaurants_on_slug", unique: true
   end
 

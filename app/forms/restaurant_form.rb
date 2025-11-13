@@ -5,6 +5,7 @@ class RestaurantForm
   attr_accessor :restaurant
 
   attribute :name, :string
+  attribute :description, :text
   attribute :address, :string
   attribute :phone, :string
   attribute :website, :string
@@ -25,6 +26,7 @@ class RestaurantForm
     @restaurant ||= Restaurant.new
     @restaurant.assign_attributes(
       name: name,
+      description: description,
       address: address,
       phone: phone,
       website: website,

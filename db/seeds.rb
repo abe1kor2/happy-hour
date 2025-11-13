@@ -32,33 +32,33 @@ if r1.deals.empty?
   )
 end
 
-# ---- Restaurant 2 Seed Data ----
-r2 = Restaurant.find_or_initialize_by(id: "c5d792f4-bd59-484e-ac07-beeb4287f2fe")
-if r2.new_record?
-  puts "Creating Bernard Stanley Gastropub..."
-  r2.assign_attributes(
-    name: "Bernard Stanley Gastropub",
-    address: "223 Duckworth St, St. John's, NL A1C 1G7",
-    phone: "(709) 722-5266",
-    website: "http://www.bernardstanleygastropub.com/",
-    latitude: 47.56720553251499,
-    longitude: -52.704883664261565
-  )
-  r2.save!
-  # Attach photo
-  photo_path = Rails.root.join('app', 'assets', 'images', 'bernard-stanley.jpg')
-  r2.photo.attach(io: File.open(photo_path), filename: 'bernard-stanley.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
-else
-    puts "Found Bernard Stanley Gastropub, skipping creation."
-end
-if r2.deals.empty?
-  r2.deals.create!(
-    day: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    start_time: "15:00",
-    end_time: "18:00",
-    description: "Join us for Happy Hour in downtown St. John's, Monday to Friday from 3:00 to 6:00 pm, great drinks, tasty bites, and good vibes!"
-  )
-end
+# # ---- Restaurant 2 Seed Data ----
+# r2 = Restaurant.find_or_initialize_by(id: "c5d792f4-bd59-484e-ac07-beeb4287f2fe")
+# if r2.new_record?
+#   puts "Creating Bernard Stanley Gastropub..."
+#   r2.assign_attributes(
+#     name: "Bernard Stanley Gastropub",
+#     address: "223 Duckworth St, St. John's, NL A1C 1G7",
+#     phone: "(709) 722-5266",
+#     website: "http://www.bernardstanleygastropub.com/",
+#     latitude: 47.56720553251499,
+#     longitude: -52.704883664261565
+#   )
+#   r2.save!
+#   # Attach photo
+#   photo_path = Rails.root.join('app', 'assets', 'images', 'bernard-stanley.jpg')
+#   r2.photo.attach(io: File.open(photo_path), filename: 'bernard-stanley.jpg', content_type: 'image/jpeg') if File.exist?(photo_path)
+# else
+#     puts "Found Bernard Stanley Gastropub, skipping creation."
+# end
+# if r2.deals.empty?
+#   r2.deals.create!(
+#     day: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+#     start_time: "15:00",
+#     end_time: "18:00",
+#     description: "Join us for Happy Hour in downtown St. John's, Monday to Friday from 3:00 to 6:00 pm, great drinks, tasty bites, and good vibes!"
+#   )
+# end
 
 # ---- Restaurant 3 Seed Data ----
 r3 = Restaurant.find_or_initialize_by(id: "5b703c0d-9300-4d5f-a175-d69a81d50aa4")
