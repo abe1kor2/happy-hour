@@ -5,7 +5,7 @@ class DealForm
   attr_accessor :deal
 
   attribute :restaurant_id, :string
-  attribute :day, :string
+  attribute :day, :string, array: true, default: []
   attribute :start_time, :time
   attribute :end_time, :time
   attribute :description, :string
@@ -15,6 +15,11 @@ class DealForm
   def save
     return false unless valid?
     persist
+  end
+
+  # Override to handle array parameter from checkboxes
+  def day=(value)
+    @day = value.is_a?(Array) ? value.reject(&:blank?) : [value].compact
   end
 
   private

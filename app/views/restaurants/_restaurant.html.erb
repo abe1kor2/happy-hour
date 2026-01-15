@@ -25,18 +25,15 @@
       </div>
       <%# Deals Section %>
       <div class="mt-4 space-y-4">
-        <% deals_by_day = restaurant.deals.group_by(&:day) %>
-        <% if deals_by_day.any? %>
-          <% deals_by_day.each do |day, deals| %>
+        <% if restaurant.deals.any? %>
+          <% restaurant.deals.each do |deal| %>
             <div class="deal-group">
-              <h4 class="text-md font-semibold text-gray-800"><%= day %></h4>
-              <% deals.each do |deal| %>
-                <% present deal, DealPresenter do |deal_presenter| %>
-                  <div class="text-sm mt-2 pl-2 border-l-2 border-gray-200">
-                    <p class="text-gray-800"><%= deal.description %></p>
-                    <p class="text-xs text-gray-500"><%= deal_presenter.time_range %></p>
-                  </div>
-                <% end %>
+              <% present deal, DealPresenter do |deal_presenter| %>
+                <h4 class="text-md font-semibold text-gray-800"><%= deal_presenter.days_list %></h4>
+                <div class="text-sm mt-2 pl-2 border-l-2 border-gray-200">
+                  <p class="text-gray-800"><%= deal.description %></p>
+                  <p class="text-xs text-gray-500"><%= deal_presenter.time_range %></p>
+                </div>
               <% end %>
             </div>
           <% end %>
